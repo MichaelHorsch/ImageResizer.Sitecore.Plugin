@@ -10,12 +10,9 @@ namespace ImageResizer.Sitecore.Plugin
 {
     public class SitecoreVirtualFile : IVirtualFile
     {
-        protected ResizeSettings query;
-
-        public SitecoreVirtualFile(string virtualPath, NameValueCollection query)
+        public SitecoreVirtualFile(string virtualPath)
         {
             this._virtualPath = virtualPath;
-            this.query = new ResizeSettings(query);
         }
 
         public System.IO.Stream Open()

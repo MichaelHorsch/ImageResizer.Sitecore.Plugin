@@ -24,22 +24,35 @@ namespace ImageResizer.Sitecore.Plugin
 
         private string FixVirtualPath(string virtualPath)
         {
-            return virtualPath.Substring(virtualPath.LastIndexOf("~")); // LOL it's the only way, I'm so sorry but it's true.
+            var subIndex = virtualPath.LastIndexOf("~");
+            if (subIndex < 0)
+            {
+                subIndex = virtualPath.LastIndexOf("-");
+            }
+
+            if (subIndex > -1)
+            {
+                return virtualPath.Substring(subIndex);
+            }
+            else
+            {
+                return virtualPath;
+            }
         }
 
         public bool FileExists(string virtualPath, NameValueCollection queryString)
         {
             virtualPath = FixVirtualPath(virtualPath);
-
             DynamicLink dynamicLink;
-            return DynamicLink.TryParse(virtualPath, out dynamicLink);
+
+            return queryString.Count > 0 && DynamicLink.TryParse(virtualPath, out dynamicLink);
         }
 
         public IVirtualFile GetFile(string virtualPath, NameValueCollection queryString)
         {
             virtualPath = FixVirtualPath(virtualPath);
 
-            return new SitecoreVirtualFile(virtualPath, queryString);
+            return new SitecoreVirtualFile(virtualPath);
         }
     }
 }
