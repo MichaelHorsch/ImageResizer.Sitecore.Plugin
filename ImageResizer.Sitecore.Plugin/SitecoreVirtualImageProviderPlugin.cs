@@ -30,7 +30,7 @@ namespace ImageResizer.Sitecore.Plugin
                 subIndex = virtualPath.LastIndexOf("-");
             }
 
-            if (subIndex < 0)
+            if (subIndex > 0)
             {
                 return virtualPath.Substring(subIndex);
             }
