@@ -42,6 +42,11 @@ namespace ImageResizer.Sitecore.Plugin
 
         public bool FileExists(string virtualPath, NameValueCollection queryString)
         {
+            if (virtualPath.StartsWith("/sitecore/shell/-"))
+            {
+                return false;
+            }
+            
             virtualPath = FixVirtualPath(virtualPath);
             DynamicLink dynamicLink;
 
